@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Fjalla+One&family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,700&family=Poppins:ital,wght@0,400;0,600;0,700;0,800;1,500&family=Roboto:wght@300;400;500;900&display=swap');
+@import '~@fortawesome/fontawesome-free/css/all.css';
 *{
     margin: 0;
     padding:0;
@@ -11,7 +12,7 @@ body{
 header{
    height: 100vh;
    width: 100%;
-   background-image: url('images/alex-kotliarskyi-QBpZGqEMsKg-unsplash.jpg');
+   background-image: url('../assets/images/alex-kotliarskyi-QBpZGqEMsKg-unsplash.jpg');
    background-size: cover;
    background-repeat: no-repeat;
    background-position: center;
@@ -80,7 +81,7 @@ a:hover{
     transition: haight .2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
 .dropdown_container.open{
-    height: 260px;
+    height: 300px;
 }
 .dropdown_container .dropdown_menu{
     width:90%;
