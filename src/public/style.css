@@ -177,7 +177,7 @@ a:hover{
   }
 .slide img:nth-child(1) {
     left: 50%;
-    top:55%;
+    top:60%;
     animation-delay: 10s;
 }
 .slide img:nth-child(2) {
@@ -188,7 +188,7 @@ a:hover{
   
 .slide img:nth-child(3) {
     left: 10%;
-    top: 50%;
+    top: 60%;
     animation-delay: 10s;
 }
   
@@ -209,8 +209,8 @@ a:hover{
     animation-delay: 10s;
 }
 .slide img:nth-child(7) {
-    right: 150px;
-    top:70px;
+    left: 90%;
+    top:10%;
     animation-delay: 10s;
 }
   
@@ -226,7 +226,7 @@ a:hover{
 }
 .slide img:nth-child(10) {
     left:70%;
-    top: 25%;
+    top: 20%;
     animation-delay: 10s;
 }
 .slide img:nth-child(11) {
@@ -236,10 +236,15 @@ a:hover{
 }
 .slide img:nth-child(12) {
     left: 30%;
-    top:25%;
+    top:20%;
     animation-delay: 10s;
 }
-  
+.slide img:nth-child(13) {
+    left: 50%;
+    top:20%;
+    animation-delay: 10s;
+}
+
 @keyframes move {
 from {
     transform: translateX(0);
