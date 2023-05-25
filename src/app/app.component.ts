@@ -10,7 +10,6 @@ export class AppComponent {
   isMenuOpen = false;
   compt:number = 0;
 
-
   toggleMenu(): void{
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -101,8 +100,17 @@ export class AppComponent {
     }, 7000);  
   }
   ngOnInit(): void {
+    let mainBody = document.querySelector('.main-body') as HTMLElement;
+    let devImages = document.querySelectorAll('.dev-images') ;
+    let navBar = document.querySelector('.navbar') as HTMLElement ;
     this.skipStep();
     this.checkWindowWidth();
+    window.addEventListener('scroll', () => {
+      navBar.style.backgroundColor="rgba(0, 9, 64, 0.6)";
+      if(window.scrollY == 0){
+      navBar.style.backgroundColor="transparent";
+      }
+    });
     window.addEventListener('resize', () => {
       this.checkWindowWidth();
     });
