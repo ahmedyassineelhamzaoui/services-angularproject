@@ -1,0 +1,58 @@
+<header>
+    <nav class="navbar">
+        <div class="logo"><a href="#">Creative web</a></div>
+        <ul class="links">
+            <li><a class="menu1" href="home"> Home</a></li>
+            <li><a class="menu2" href="about">About</a></li>
+            <li><a class="menu3" href="services">Services</a></li>
+            <li><a class="menu4" href="analytics">Analytics</a></li>
+        </ul>
+        <a href="#" class="action_btn">Contact</a>
+        <div class="toggle_btn" (click)="toggleMenu()">
+            <i class="{{ isMenuOpen ? 'fa-solid  fa-xmark' : 'fa-solid fa-bars' }}"></i>
+        </div>
+    </nav>
+    <div class="dropdown_container" [class.open]="isMenuOpen">
+        <div class="dropdown_menu" >
+            <li><a  href="home"> Home</a></li>
+            <li><a  href="about">About</a></li>
+            <li><a  href="services">Services</a></li>
+            <li><a  href="analytics">Analytics </a></li>
+            <li><a  href="#" class="action_btn">Contact</a></li>
+        </div>
+    </div>
+    <div class="header-caroseile">
+        <div class="slide">
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="60" height="60"/>
+            <img class="dev-images" src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="50" height="50"/>
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="60" height="60"/>
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass" width="60" height="60"/> 
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="50" height="50"/>
+            <img class="dev-images" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="60" height="60" />
+            <img class="dev-images" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50" height="50" />
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="50" height="50"/>
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original-wordmark.svg" alt="Vue.js" width="50" height="50"/>
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-plain-wordmark.svg" alt="laravel" width="50" height="50"/>
+            <img class="dev-images" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg"  width="50" height="50" />
+            <img class="dev-images" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-plain-wordmark.svg" width="60" height="60" />   
+            <img class="dev-images" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="60" height="60"/>
+            <div (click)="clickPrevious()" id="previous-btn" class="caroseile-btn"><i class="fa-solid fa-circle-chevron-left"></i></div>
+            <div id="first-slide" class="caroseile-text">
+                Welcome to our web application development service! We specialize in creating customized web solutions for businesses of all sizes. Our team of experienced developers can help you build a web application that meets your specific needs and requirements. Whether you need a simple website or a complex web application, we have the expertise to deliver high-quality results.
+            </div>
+            <div id="second-slide" class="caroseile-text">
+                At our company, we believe that every business deserves a strong online presence. That's why we offer a wide range of web application development services, including website design, e-commerce development, content management systems, and more. We work closely with our clients to understand their unique goals and objectives, and we use the latest technologies to ensure that their web applications are fast, secure, and reliable.
+            </div>
+            <div id="third-slide" class="caroseile-text">
+                Our team of developers has years of experience in building web applications using a variety of programming languages and frameworks. We are experts in 
+                many  technologies. We use agile development methodologies to ensure that our projects are completed on time and within budget. We also provide ongoing support and maintenance to ensure that your web application continues to perform at its best.
+            </div>
+            <div (click)="clickNext()" id="next-btn" class="caroseile-btn"><i class="fa-solid fa-circle-chevron-right"></i></div>
+        </div>
+        <div class="switch-btns">
+            <span class="curent-btn active-caroseile"></span>
+            <span class="curent-btn"></span>
+            <span class="curent-btn"></span>
+        </div>
+    </div>
+  </header>

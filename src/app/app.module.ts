@@ -6,11 +6,23 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './layouts/header/header.component';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { ProjectsComponent } from './dashboard/projects/projects.component';
+import { StatisticsComponent } from './dashboard/statistics/statistics.component';
+import { ServicesComponent } from './dashboard/services/services.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent,
+    SidebarComponent,
+    ProjectsComponent,
+    StatisticsComponent,
+    ServicesComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
