@@ -1,0 +1,39 @@
+*{
+    margin:0;
+    padding:0;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    color: wheat;
+    padding: 0 0 .6rem .6rem;
+    font-weight: bold;
+}
+.logo img{
+    width:60px;
+    height:60px;
+    margin-right: .6rem;
+}
+.mat-icon{
+    vertical-align: center;
+    margin-right:1rem ;
+}
+.list-item{
+    display: flex;
+    align-items: center;
+    color: rgb(188, 188, 188) ;
+    font-size: 0.8rem;
+    height: 44px !important;
+    margin-bottom : 4px;
+    border-radius:5px;
+    margin:2px 8px;
+    padding: 0 .3rem;
+}
+.list-item:hover{
+    background-color: rgb(135, 135, 176);
+    color:aqua;
+}
+.list-item-active{
+    background-color: rgb(135, 135, 176);
+    color:aqua;
+}

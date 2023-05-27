@@ -19,7 +19,11 @@ export class AppComponent {
     return false
   }
   isDashboardRoute() {
-    return this.router.url === '/dashboard';
+    console.log('first')
+    if(this.router.url === '/dashboard/projects' || this.router.url === '/dashboard/services' || this.router.url === '/dashboard/statistics'){
+      return true
+    }
+    return false
   }
 }
 

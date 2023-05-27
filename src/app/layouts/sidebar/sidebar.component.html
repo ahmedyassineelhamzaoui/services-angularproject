@@ -1,1 +1,23 @@
-<p>sidebar works!</p>
+<mat-nav-list>
+    <div class="logo py-4">
+        <img src="../../../assets/images/sunder-muthukumaran-fd6K_OFlnRA-unsplash.jpg" alt="">
+        <h3>Services</h3>
+    </div>
+    <mat-divider></mat-divider>
+    <h2 matSubheader class="mt-2 text-blue-400 font-bold">Applications</h2>
+    <a href="" class="list-item" routerLink="/dashboard/users" routerLinkActive="list-item-active">
+        <mat-icon>person</mat-icon><p>Users</p>
+    </a>
+    <a href="" class="list-item" routerLink="/dashboard/projects" routerLinkActive="list-item-active">
+        <mat-icon>folder</mat-icon><p>Projects</p> 
+    </a>
+    <a href="" class="list-item"  routerLink="/dashboard/services" routerLinkActive="list-item-active">
+        <mat-icon>build</mat-icon><p>Services</p> 
+    </a>
+    <a href="" class="list-item"  routerLink="/dashboard/statistics" routerLinkActive="list-item-active">
+        <mat-icon>bar_chart</mat-icon><p>Statistics</p> 
+    </a>
+    <a href="" class="list-item"  routerLink="/dashboard/roles" routerLinkActive="list-item-active">
+        <mat-icon>assignment_ind</mat-icon><p>Roles</p> 
+    </a>
+</mat-nav-list>

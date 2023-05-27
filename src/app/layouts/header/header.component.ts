@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  constructor(private router: Router) {}
+
   isMenuOpen = false;
   compt:number = 0;
 
@@ -21,7 +24,10 @@ export class HeaderComponent {
       dropdownContainer.classList.remove('open');
     }
   }
+ 
   clickNext(): void{
+    if( this.router.url === '/' ||  this.router.url === '/login'){
+  
     let firstSlide=document.querySelector('#first-slide') as HTMLDivElement;
     let secondSlide=document.querySelector('#second-slide') as HTMLDivElement;
     let thirdSlide=document.querySelector('#third-slide') as HTMLDivElement;
@@ -29,8 +35,10 @@ export class HeaderComponent {
 
     if(this.compt<2){
      this.compt++
-        curentBtn[this.compt].classList.add('active-caroseile')
-        curentBtn[this.compt-1].classList.remove('active-caroseile')
+     if(curentBtn[this.compt]){
+      curentBtn[this.compt].classList.add('active-caroseile')
+      curentBtn[this.compt-1].classList.remove('active-caroseile')
+     }
         if(this.compt==1){
             firstSlide.style.display="none"
             secondSlide.style.display="block"
@@ -43,8 +51,10 @@ export class HeaderComponent {
         }
     }else{
         this.compt=0
-        curentBtn[this.compt+2].classList.remove('active-caroseile')
-        curentBtn[this.compt].classList.add('active-caroseile')
+        if(curentBtn){
+          curentBtn[this.compt+2].classList.remove('active-caroseile')
+          curentBtn[this.compt].classList.add('active-caroseile')
+        }
         if(this.compt==1){
             firstSlide.style.display="none"
             secondSlide.style.display="block"
@@ -57,7 +67,10 @@ export class HeaderComponent {
         }   
     }
   }
+}
   clickPrevious(): void{
+    if( this.router.url === '/' ||  this.router.url === '/login'){
+      
       let firstSlide=document.querySelector('#first-slide') as HTMLDivElement;
       let secondSlide=document.querySelector('#second-slide') as HTMLDivElement;
       let thirdSlide=document.querySelector('#third-slide') as HTMLDivElement;
@@ -91,6 +104,7 @@ export class HeaderComponent {
               firstSlide.style.display="block"
               secondSlide.style.display="none"
           }
+      }      
       }
   }
   skipStep():void {
@@ -99,6 +113,8 @@ export class HeaderComponent {
     }, 7000);  
   }
   ngOnInit(): void {
+    if( this.router.url === '/' ||  this.router.url === '/login'){
+      
     let mainBody = document.querySelector('.main-body') as HTMLElement;
     let devImages = document.querySelectorAll('.dev-images') ;
     let navBar = document.querySelector('.navbar') as HTMLElement ;
@@ -113,6 +129,6 @@ export class HeaderComponent {
     window.addEventListener('resize', () => {
       this.checkWindowWidth();
     });
+  }      
   }
-  
 }

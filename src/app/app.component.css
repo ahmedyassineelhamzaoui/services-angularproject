@@ -1,0 +1,9 @@
+.mat-drawer-container{
+   display: flex;
+   flex-direction: colomun;
+   height: 100%;
+}
+.mat-drawer{
+    width:260px;
+    background-color: rgb(4, 4, 59);
+}

@@ -9,9 +9,9 @@ import { StatisticsComponent } from './dashboard/statistics/statistics.component
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
-  {path:"projects",component:ProjectsComponent},
-  {path:"services",component:ServicesComponent},
-  {path:"statistics",component:StatisticsComponent},
+  {path:"dashboard/projects",component:ProjectsComponent},
+  {path:"dashboard/services",component:ServicesComponent},
+  {path:"dashboard/statistics",component:StatisticsComponent},
   {path:"home",redirectTo:"/"},
   {path:"",redirectTo:"home",pathMatch:"full"},
   
