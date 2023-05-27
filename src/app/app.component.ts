@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent {
   title = 'services-project';
   constructor(private router: Router) {}
-
+  sideBarOpen = true;
   isLandingPageRoute() {
     if( this.router.url === '/' ||  this.router.url === '/login'){
       return true
@@ -25,5 +25,9 @@ export class AppComponent {
     }
     return false
   }
+  sideBarToggler(){
+    this.sideBarOpen = !this.sideBarOpen;
+  }
+  
 }
 

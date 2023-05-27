@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component,Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @Output() toggleMySideBar:EventEmitter<any>  = new EventEmitter();
+  toggleSidebar(){
+    this.toggleMySideBar.emit();
+ }
+ isDropdownOpen = false;
 
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  
 }

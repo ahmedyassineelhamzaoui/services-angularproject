@@ -1,1 +1,25 @@
-<p>navbar works!</p>
+<mat-toolbar>
+    <mat-toolbar-row class="bg-gray-50 shadow-md flex justify-between items-center">
+        <button (click)="toggleSidebar()" mat-icon-button><mat-icon>menu</mat-icon></button>
+        <div>
+            <ul>
+                <li>
+                    <button (click)="toggleDropdown()" mat-button  class="user mt-2 flex items-center">
+                    <img class="user-profile-img mr-1 p-2" src="../../../assets/images/alex-suprun-ZHvM3XIOHoE-unsplash.jpg" alt="profile">
+                    User Name
+                    <mat-icon  class="user-image-icon ml-1 ">keyboard_arrow_down</mat-icon>
+                    </button>
+                    <div id="dropdown" *ngIf="isDropdownOpen" class="z-50 bg-white cursor-pointer hover:bg-slate-100 rounded-md  shadow w-40">
+                        <ul class="py-2 text-sm text-gray-700 " >
+                          <li class="flex items-center">
+                            <mat-icon>exit_to_app</mat-icon>
+                            <p class="ml-2">Logout</p>
+                          </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row >
+</mat-toolbar>
+

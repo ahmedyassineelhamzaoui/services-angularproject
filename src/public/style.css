@@ -273,3 +273,6 @@ to {
     background-image: url('../assets/images/henning-witzel-ukvgqriuOgo-unsplash.jpg');
     background-size: cover;
 }
+.mdc-list{
+    padding-top: 0 !important;
+}
