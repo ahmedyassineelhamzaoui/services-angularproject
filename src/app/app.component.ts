@@ -19,7 +19,6 @@ export class AppComponent {
     return false
   }
   isDashboardRoute() {
-    console.log('first')
     if(this.router.url === '/dashboard/projects' || this.router.url === '/dashboard/services' || this.router.url === '/dashboard/statistics'){
       return true
     }
@@ -28,6 +27,13 @@ export class AppComponent {
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }
-  
+  checkWindowWidth(): void {
+    if (window.innerWidth <= 700) {
+      this.sideBarOpen = false;
+    }
+  }
+  ngOnInit(): void {
+    this.checkWindowWidth();
+  }
 }
 

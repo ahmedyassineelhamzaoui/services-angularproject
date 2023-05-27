@@ -6,10 +6,10 @@
 .logo{
     display: flex;
     align-items: center;
-    color: wheat;
+    color: black;
     padding: .3rem 0 .3rem .6rem;
     font-weight: bold;
-    background: #000;
+    background: rgb(202, 201, 201);
 }
 .logo img{
     width:49px;
@@ -20,6 +20,9 @@
 .mat-icon{
     vertical-align: center;
     margin-right:1rem ;
+}
+.mat-divider{
+    border:1px solid rgb(23, 132, 227);
 }
 .list-item{
     display: flex;
