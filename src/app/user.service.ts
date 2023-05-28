@@ -26,6 +26,9 @@ export class UserService {
   getAllUsers():Observable<any> {
       return this.http.get<User[]>(this.apiUrl+'/users').pipe(catchError(this.handlError));
   }
+  createUser(user : User):Observable<any>{
+    return this.http.post<User[]>(this.apiUrl+'/register',user).pipe(catchError(this.handlError));
+  }
   handlError(error:HttpErrorResponse){
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

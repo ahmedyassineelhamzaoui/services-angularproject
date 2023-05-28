@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './dashboard/users/users.component';
 import { RolesComponent } from './dashboard/roles/roles.component';
 import { PermissionsComponent } from './errors/permissions/permissions.component';
+import { NotfoundComponent } from './errors/notfound/notfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { PermissionsComponent } from './errors/permissions/permissions.component
     NavbarComponent,
     UsersComponent,
     RolesComponent,
-    PermissionsComponent
+    PermissionsComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

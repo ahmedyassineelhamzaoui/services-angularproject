@@ -4,6 +4,7 @@ export class User {
     last_name: string;
     status: string;
     email: string;
+    password: string;
     
     constructor(){
         this.id = 0;
@@ -11,5 +12,6 @@ export class User {
         this.last_name = "";
         this.email = "";
         this.status = "offline";
+        this.password = "";
     }
 }

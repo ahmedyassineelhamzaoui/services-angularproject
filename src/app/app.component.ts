@@ -36,6 +36,12 @@ export class AppComponent {
     }
     return false
   }
+  is404(){
+    if(this.router.url === '/404'){
+      return true
+    }
+    return false
+  }
   sideBarToggler(){
     this.sideBarOpen = !this.sideBarOpen;
   }

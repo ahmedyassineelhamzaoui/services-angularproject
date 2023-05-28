@@ -21,7 +21,9 @@ export class HeaderComponent {
     if (window.innerWidth <= 700) {
       this.toggleMenu();
     } else {
-      dropdownContainer.classList.remove('open');
+      if(dropdownContainer){
+        dropdownContainer.classList.remove('open');
+      }
     }
   }
  

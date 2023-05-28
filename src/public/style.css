@@ -268,6 +268,9 @@ to {
     transform: translateX(100%);
 }
 }
+.mat-drawer.mat-drawer-side{
+    z-index: 1 !important;
+}
 .main-body{
     z-index: 10;
     position: relative;

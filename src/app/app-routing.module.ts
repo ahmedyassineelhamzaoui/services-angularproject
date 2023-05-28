@@ -9,6 +9,7 @@ import { ServicesComponent } from './dashboard/services/services.component';
 import { StatisticsComponent } from './dashboard/statistics/statistics.component';
 import { UsersComponent } from './dashboard/users/users.component';
 import { PermissionsComponent } from './errors/permissions/permissions.component';
+import { NotfoundComponent } from './errors/notfound/notfound.component';
 const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"dashboard/projects",component:ProjectsComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:"dashboard/users",component:UsersComponent},
   {path:"dashboard/roles",component:RolesComponent},
   {path:"permissions",component:PermissionsComponent},
+  {path:"404",component:NotfoundComponent},
   {path:"home",redirectTo:"/"},
   {path:"",redirectTo:"home",pathMatch:"full"},
   

@@ -1,8 +1,9 @@
-import { Component,NgZone } from '@angular/core';
+import { Component,NgZone,ViewChild } from '@angular/core';
 import { User } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
-import { TokenService } from 'src/app/shared/token.service';
+import { TokenService } from '../../shared/token.service';
 import { Router } from '@angular/router';
+import { FormGroup,FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -10,18 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-   first_name : string = '';
-   last_name : string ='';
-   status : string ='';
-   email : string ='';
+   user :  User = new User();
+   errors: any = null;
    Users !: User[];
    isLoading = true; 
-   constructor (public userService:UserService,
-                public tokenService:TokenService,
+
+   constructor (
+                public  formBuilder:FormBuilder,
+                public userService:UserService,
+                private token:TokenService,
                 public router : Router,
                 public ngZone: NgZone){
-                  if(tokenService.isLoggedIn()){
-                      
+                  if(token.isLoggedIn()){
                     this.userService.getAllUsers().subscribe((data: any) => {
                       if(data.info){
                         this.ngZone.run(()=> this.router.navigateByUrl('/home'))
@@ -36,4 +37,105 @@ export class UsersComponent {
                     this.ngZone.run(()=> this.router.navigateByUrl('/home'))
                   }
     }
+    showAddModal(){
+      let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
+      showAddModal.classList.add('flex');
+      showAddModal.classList.remove('hidden');
+    }
+    hideAddModal(){
+      let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
+      let userForm=document.querySelector('#user-form') as HTMLFormElement;
+      showAddModal.classList.add('hidden');
+      showAddModal.classList.remove('flex');
+      userForm.reset();
+      this.errors = null;
+    }
+    showEditModal(){
+      let editUserModal=document.querySelector('#edit-userModal') as HTMLElement;
+      editUserModal.classList.add('flex');
+      editUserModal.classList.remove('hidden');
+    }
+    hideEditModal(){
+      let editUserModal=document.querySelector('#edit-userModal') as HTMLElement;
+      editUserModal.classList.add('hidden');
+      editUserModal.classList.remove('flex');
+    }
+    showDeleteModal(){
+      let deleteUserModal=document.querySelector('#delete-userModal') as HTMLElement;
+      deleteUserModal.classList.add('flex');
+      deleteUserModal.classList.remove('hidden');
+    }
+    hideDeleteModal(){
+      let deleteUserModal=document.querySelector('#delete-userModal') as HTMLElement;
+      deleteUserModal.classList.add('hidden');
+      deleteUserModal.classList.remove('flex');
+    }
+    register(){
+      let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
+      let messageErrorUser=document.querySelector(".message-error-user") as HTMLElement;
+      let messageSuccessUser=document.querySelector(".message-success-user") as HTMLElement;
+      let errorAlertUser = document.querySelector("#errorAlert-user") as HTMLElement;
+      let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
+      this.userService.createUser(this.user)
+      .subscribe(
+        response => {
+          if(response.success){
+            showAddModal.classList.add('hidden')
+            showAddModal.classList.remove('flex')
+            successAlertUser.classList.add('flex')
+            successAlertUser.classList.remove('hidden');
+            messageSuccessUser.innerText=response.success;
+            this.Users = response.users;
+            if (messageSuccessUser) {
+              setTimeout(() => {
+                this.removeAlert();
+              }, 5000);
+            }
+          }else if(response.error){
+            this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+          }
+          if(response.permissions){
+            this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+          }
+          else{
+            this.errors = response.errors
+          }
+         },(err)=>{
+          console.log(err);
+      })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    removeAlert(): void {
+      let errorAlertUser = document.querySelector("#errorAlert-user") as HTMLElement;
+      let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
+      if (errorAlertUser) {
+        errorAlertUser.classList.add('hidden');
+        errorAlertUser.classList.remove('flex');
+      }
+      if (successAlertUser) {
+        successAlertUser.classList.add('hidden');
+        successAlertUser.classList.remove('flex');
+      }
+    }
+    
+    
 }
