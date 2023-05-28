@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './shared/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,7 +20,9 @@ import { StatisticsComponent } from './dashboard/statistics/statistics.component
 import { ServicesComponent } from './dashboard/services/services.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { UsersComponent } from './dashboard/users/users.component';
+import { RolesComponent } from './dashboard/roles/roles.component';
+import { PermissionsComponent } from './errors/permissions/permissions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StatisticsComponent,
     ServicesComponent,
     NavbarComponent,
+    UsersComponent,
+    RolesComponent,
+    PermissionsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +50,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatDividerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

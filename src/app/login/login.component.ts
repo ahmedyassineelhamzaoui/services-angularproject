@@ -1,6 +1,7 @@
 import { Component,NgZone } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { TokenService } from '../shared/token.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent {
   
 
   constructor(private userService: UserService,
+    private token:TokenService,
     private router:Router,
     private ngZone: NgZone) { }
 
@@ -25,8 +27,9 @@ export class LoginComponent {
     this.userService.login(this.email, this.password)
       .subscribe(
         response => {
+         this.responseHandler(response.authorisation);
          if(response.success){
-          this.ngZone.run(()=> this.router.navigateByUrl('/home'))
+          this.ngZone.run(()=> this.router.navigateByUrl('/dashboard/users'))
          }else{
           errorAlertLogin.classList.add('flex')
           errorAlertLogin.classList.remove('hidden');
@@ -61,6 +64,9 @@ export class LoginComponent {
       infoAlertLogin.classList.add('hidden');
       infoAlertLogin.classList.remove('flex');
     }
+  }
+  responseHandler(data:any) {
+    this.token.handleData(data.token);
   }
   
 }
