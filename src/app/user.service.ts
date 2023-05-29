@@ -29,6 +29,9 @@ export class UserService {
   createUser(user : User):Observable<any>{
     return this.http.post<User[]>(this.apiUrl+'/register',user).pipe(catchError(this.handlError));
   }
+  removeUser(index:number): Observable<any>{
+    return this.http.delete<any>(this.apiUrl + `/deleteUser?id=${index}`).pipe(catchError(this.handlError));
+  }
   handlError(error:HttpErrorResponse){
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

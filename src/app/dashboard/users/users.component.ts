@@ -20,7 +20,8 @@ export class UsersComponent {
    allStudents: number = 0;
    pagination: number = 1;
 
-
+   deleteIndex : number =-1 ;
+   userIndex : number = -1;
    constructor (
                 public  formBuilder:FormBuilder,
                 public userService:UserService,
@@ -53,8 +54,10 @@ export class UsersComponent {
       editUserModal.classList.add('hidden');
       editUserModal.classList.remove('flex');
     }
-    showDeleteModal(){
+    showDeleteModal(index : number){
       let deleteUserModal=document.querySelector('#delete-userModal') as HTMLElement;
+      this.deleteIndex = index;
+      console.log(index)
       deleteUserModal.classList.add('flex');
       deleteUserModal.classList.remove('hidden');
     }
@@ -116,7 +119,40 @@ export class UsersComponent {
       this.fetchUsers();
     }
 
+    confirmDelete() {
+      let messageSuccessUser=document.querySelector(".message-success-user") as HTMLElement;
+      let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
+      this.Users.forEach((element,index) => {
+        if(element.id == this.deleteIndex){
+          this.userIndex = index;
+          this.userService.removeUser(this.deleteIndex).subscribe((response) =>{
+            if(response.success){
+              this.Users.splice(this.userIndex,1);
+              this.hideDeleteModal();
+              successAlertUser.classList.add('flex')
+              successAlertUser.classList.remove('hidden');
+              messageSuccessUser.innerText=response.success;
+              if (messageSuccessUser) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }
+            if(response.error){
+              this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+            }
+            if(response.permissions){
+              this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+            }
+          },(err)=>{
+            this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+          }) 
+        }
+        
+      });
 
+      this.hideDeleteModal();
+    }
 
 
 
