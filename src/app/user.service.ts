@@ -23,8 +23,8 @@ export class UserService {
     const body = { email, password };
     return this.http.post<any>( this.apiUrl+'/login', body).pipe(catchError(this.handlError));
   }
-  getAllUsers():Observable<any> {
-      return this.http.get<User[]>(this.apiUrl+'/users').pipe(catchError(this.handlError));
+  getAllUsers(page : number):Observable<any> {
+      return this.http.get<User[]>(this.apiUrl+'/users?page='+ page).pipe(catchError(this.handlError));
   }
   createUser(user : User):Observable<any>{
     return this.http.post<User[]>(this.apiUrl+'/register',user).pipe(catchError(this.handlError));

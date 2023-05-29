@@ -10,11 +10,16 @@ import { FormGroup,FormBuilder} from '@angular/forms';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent {
    user :  User = new User();
    errors: any = null;
    Users !: User[];
    isLoading = true; 
+
+   allStudents: number = 0;
+   pagination: number = 1;
+
 
    constructor (
                 public  formBuilder:FormBuilder,
@@ -22,20 +27,8 @@ export class UsersComponent {
                 private token:TokenService,
                 public router : Router,
                 public ngZone: NgZone){
-                  if(token.isLoggedIn()){
-                    this.userService.getAllUsers().subscribe((data: any) => {
-                      if(data.info){
-                        this.ngZone.run(()=> this.router.navigateByUrl('/home'))
-                      }
-                      if(data.error){
-                        this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
-                      }
-                      this.Users = data.users;
-                      this.isLoading = false;
-                    });
-                  }else{
-                    this.ngZone.run(()=> this.router.navigateByUrl('/home'))
-                  }
+                  this.fetchUsers();
+                  
     }
     showAddModal(){
       let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
@@ -72,20 +65,18 @@ export class UsersComponent {
     }
     register(){
       let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
-      let messageErrorUser=document.querySelector(".message-error-user") as HTMLElement;
       let messageSuccessUser=document.querySelector(".message-success-user") as HTMLElement;
-      let errorAlertUser = document.querySelector("#errorAlert-user") as HTMLElement;
       let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
       this.userService.createUser(this.user)
       .subscribe(
         response => {
           if(response.success){
+            this.Users.push(response.user);
             showAddModal.classList.add('hidden')
             showAddModal.classList.remove('flex')
             successAlertUser.classList.add('flex')
             successAlertUser.classList.remove('hidden');
             messageSuccessUser.innerText=response.success;
-            this.Users = response.users;
             if (messageSuccessUser) {
               setTimeout(() => {
                 this.removeAlert();
@@ -104,11 +95,26 @@ export class UsersComponent {
           console.log(err);
       })
     }
-
-
-
-
-
+    fetchUsers(){
+      if(this.token.isLoggedIn()){
+        this.userService.getAllUsers(this.pagination).subscribe((data: any) => {
+          if(data.info){
+            this.ngZone.run(()=> this.router.navigateByUrl('/home'))
+          }
+          if(data.error){
+            this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+          }
+          this.Users = data.users;
+          this.isLoading = false;
+        });
+      }else{
+        this.ngZone.run(()=> this.router.navigateByUrl('/home'))
+      }
+    }
+    renderPage(event: number) {
+      this.pagination = event;
+      this.fetchUsers();
+    }
 
 
 

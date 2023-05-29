@@ -24,6 +24,8 @@ import { UsersComponent } from './dashboard/users/users.component';
 import { RolesComponent } from './dashboard/roles/roles.component';
 import { PermissionsComponent } from './errors/permissions/permissions.component';
 import { NotfoundComponent } from './errors/notfound/notfound.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,8 @@ import { NotfoundComponent } from './errors/notfound/notfound.component';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatDividerModule
+    MatDividerModule,
+    NgxPaginationModule
   ],
   providers: [
     {

@@ -57,7 +57,12 @@
                             </tr>
                         </ng-container>
                         <ng-template #userList>
-                            <tr *ngFor="let user of Users" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                            <tr *ngFor="let user of Users | paginate
+                            : {
+                                itemsPerPage: 4,
+                                currentPage: pagination,
+                                totalItems: allStudents
+                              }" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{user.first_name}}
                                 </th>
@@ -92,6 +97,11 @@
                         </ng-template>
                     </tbody>
                 </table>
+                <div class="flex justify-center pt-2 shadow-md">
+                    <pagination-controls 
+                      (pageChange)="renderPage($event)"
+                    ></pagination-controls>
+                </div>
             </div>
         </div>
     </div>

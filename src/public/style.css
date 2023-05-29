@@ -318,3 +318,8 @@ div.online-indicator {
             opacity: 0;
           }
   }
+  
+  .ngx-pagination li {
+    border-radius: 50% !important;
+ }
+ 
