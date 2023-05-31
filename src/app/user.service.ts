@@ -32,6 +32,10 @@ export class UserService {
   removeUser(index:number): Observable<any>{
     return this.http.delete<any>(this.apiUrl + `/deleteUser?id=${index}`).pipe(catchError(this.handlError));
   }
+  updateUserInfo(index:number,User:User): Observable<any>{
+    return this.http.put<any>(this.apiUrl + `/updateUser?id=${index}`,User).pipe(catchError(this.handlError));
+  }
+  
   handlError(error:HttpErrorResponse){
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

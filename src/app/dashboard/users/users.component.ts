@@ -14,6 +14,7 @@ import { FormGroup,FormBuilder} from '@angular/forms';
 export class UsersComponent {
    user :  User = new User();
    errors: any = null;
+   editerrors: any = null;
    Users !: User[];
    isLoading = true; 
    userToEdit : User = new User(); 
@@ -29,10 +30,9 @@ export class UsersComponent {
                 public userService:UserService,
                 private token:TokenService,
                 public router : Router,
-                public ngZone: NgZone){
-                this.fetchUsers();
-                  
-    }
+                public ngZone: NgZone
+                )
+    {this.fetchUsers();}
     showAddModal(){
       let showAddModal=document.querySelector('#add-userModal') as HTMLElement;
       showAddModal.classList.add('flex');
@@ -64,6 +64,8 @@ export class UsersComponent {
       let editUserModal=document.querySelector('#edit-userModal') as HTMLElement;
       editUserModal.classList.add('hidden');
       editUserModal.classList.remove('flex');
+      this.editerrors = null;
+
     }
     showDeleteModal(index : number){
       let deleteUserModal=document.querySelector('#delete-userModal') as HTMLElement;
@@ -128,7 +130,6 @@ export class UsersComponent {
       this.pagination = event;
       this.fetchUsers();
     }
-
     confirmDelete() {
       let messageSuccessUser=document.querySelector(".message-success-user") as HTMLElement;
       let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
@@ -163,8 +164,52 @@ export class UsersComponent {
 
       this.hideDeleteModal();
     }
-
-
+    updateUser(){
+      let messageSuccessUser=document.querySelector(".message-success-user") as HTMLElement;
+      let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
+      this.Users.forEach((element,index) => {
+        if(element.id == this.editIndex){
+          this.userIndex = index;
+          this.userService.updateUserInfo(this.editIndex,this.userToEdit).subscribe((response) =>{
+            if(response.success){
+              this.Users[this.userIndex] = this.userToEdit;
+              this.hideEditModal();
+              successAlertUser.classList.add('flex')
+              successAlertUser.classList.remove('hidden');
+              messageSuccessUser.innerText=response.success;
+              if (messageSuccessUser) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }
+            if(response.error){
+              console.log(response.error);
+              this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+            }
+            if(response.permissions){
+              this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+            }if(response.errors){
+              this.editerrors = response.errors
+            }if(response.exist){
+              let errorAlert=document.querySelector('#errorAlert') as HTMLElement
+              let messageErrors=document.querySelector(".message-error") as HTMLElement;
+              messageErrors.innerText=response.exist;
+              errorAlert.classList.add('flex')
+              errorAlert.classList.remove('hidden');
+              if (messageErrors) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }
+          },(err)=>{
+            this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+          }) 
+        }
+        
+      });
+    }
 
 
 
@@ -179,6 +224,8 @@ export class UsersComponent {
     removeAlert(): void {
       let errorAlertUser = document.querySelector("#errorAlert-user") as HTMLElement;
       let successAlertUser = document.querySelector("#successAlert-user") as HTMLElement;
+      let errorAlert = document.querySelector("#errorAlert") as HTMLElement;
+
       if (errorAlertUser) {
         errorAlertUser.classList.add('hidden');
         errorAlertUser.classList.remove('flex');
@@ -186,6 +233,10 @@ export class UsersComponent {
       if (successAlertUser) {
         successAlertUser.classList.add('hidden');
         successAlertUser.classList.remove('flex');
+      }
+      if (errorAlert) {
+        errorAlert.classList.add('hidden');
+        errorAlert.classList.remove('flex');
       }
     }
     
