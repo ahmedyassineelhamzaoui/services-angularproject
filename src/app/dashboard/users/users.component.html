@@ -89,7 +89,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="flex items-center ">
-                                        <span (click)="showEditModal()" class="mr-2 text-green-600 cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></span>
+                                        <span (click)="showEditModal(user.id)" class="mr-2 text-green-600 cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></span>
                                         <span (click)="showDeleteModal(user.id)" class="text-red-600 cursor-pointer"><i class="fa-solid fa-trash-can"></i></span>
                                     </div>
                                 </td>
@@ -179,16 +179,16 @@
             <!-- Modal body -->
             <div class="p-6 space-y-6">
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">First name</label>
-                    <input type="text" name="first_name" id="first_nameedit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+                    <label for="first_nameedit" class="block mb-2 text-sm font-medium text-gray-900 ">First name</label>
+                    <input [(ngModel)]="userToEdit.first_name" type="text" name="first_name" id="first_nameedit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
                 </div>
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-                    <input type="text" name="last_name" id="last_nameedit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
+                    <label for="lastnameedit_" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
+                    <input [(ngModel)]="userToEdit.last_name" type="text" name="last_name" id="last_nameedit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
                 </div>
                 <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                    <input type="email" name="email" id="email_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                    <label for="email_edit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input [(ngModel)]="userToEdit.email" type="email" name="email" id="email_edit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
             </div>
             <!-- Modal footer -->

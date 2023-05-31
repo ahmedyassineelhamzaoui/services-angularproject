@@ -16,19 +16,21 @@ export class UsersComponent {
    errors: any = null;
    Users !: User[];
    isLoading = true; 
+   userToEdit : User = new User(); 
 
-   allStudents: number = 0;
-   pagination: number = 1;
+   allStudents : number = 0;
+   pagination  : number = 1;
 
-   deleteIndex : number =-1 ;
-   userIndex : number = -1;
+   deleteIndex : number = -1 ;
+   userIndex   : number = -1 ;
+   editIndex   : number = -1 ;
    constructor (
                 public  formBuilder:FormBuilder,
                 public userService:UserService,
                 private token:TokenService,
                 public router : Router,
                 public ngZone: NgZone){
-                  this.fetchUsers();
+                this.fetchUsers();
                   
     }
     showAddModal(){
@@ -44,8 +46,17 @@ export class UsersComponent {
       userForm.reset();
       this.errors = null;
     }
-    showEditModal(){
+    showEditModal(index : number){
       let editUserModal=document.querySelector('#edit-userModal') as HTMLElement;
+      this.editIndex = index;
+      this.Users.forEach(element => {
+        if(element.id == index){
+          this.userToEdit.id         = element.id; 
+          this.userToEdit.first_name = element.first_name; 
+          this.userToEdit.last_name  = element.last_name; 
+          this.userToEdit.email      = element.email; 
+        }
+      });
       editUserModal.classList.add('flex');
       editUserModal.classList.remove('hidden');
     }
@@ -57,7 +68,6 @@ export class UsersComponent {
     showDeleteModal(index : number){
       let deleteUserModal=document.querySelector('#delete-userModal') as HTMLElement;
       this.deleteIndex = index;
-      console.log(index)
       deleteUserModal.classList.add('flex');
       deleteUserModal.classList.remove('hidden');
     }
