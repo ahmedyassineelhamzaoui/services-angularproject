@@ -4,6 +4,7 @@ import { TokenService } from './shared/token.service';
 import { Role } from './role';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { Permission } from './permission';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +21,13 @@ export class RoleService {
     public token: TokenService,
   ) { }
 
-  
+
   getAllRoles(page: number): Observable<any>{
      return this.http.get<any>(this.apiUrl + '/roles?page='+page).pipe(catchError(this.handlError));
   }
-
+  addRole(role : Role):Observable<any>{
+  return this.http.post<any>(this.apiUrl+'/createrole',role).pipe(catchError(this.handlError));
+  }
 
   handlError(error:HttpErrorResponse){
     let errorMessage = '';
