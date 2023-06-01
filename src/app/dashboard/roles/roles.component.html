@@ -2,7 +2,68 @@
     <div class="page_box p-3 mt-2">Roles</div>
     <div class="shadow-md p-3">
         <div class="text-center">
-            roles content
+            <div class="text-center">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left text-gray-500 ">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    Role name
+                                </th>
+                                <th  scope="col" class="px-6 py-3">
+                                    Permissions 
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="isLoading">
+                            <tr>
+                                <td colspan="6" class="text-center py-2" >
+                                  <span class="items-center"><i class="fa fa-spinner fa-spin"></i><span class="ml-1">Loading..</span>.</span>
+                                </td>
+                            </tr>                  
+                        </tbody>
+                        <tbody *ngIf="!isLoading" >
+                            <ng-container *ngIf="Roles.length === 0; else allRoles " >
+                                <tr>
+                                    <td colspan="5" class="text-center">No Roles found.</td>
+                                </tr>
+                            </ng-container>
+                            <ng-template #allRoles>
+                                <tr *ngFor="let role of Roles | paginate
+                                : {
+                                    itemsPerPage: 2,
+                                    currentPage: pagination,
+                                    totalItems: allRolesp
+                                  }"
+                                 class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{role.name}}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center flex-wrap" >
+                                            <button *ngFor="let permission of getRolePermissionNames(role)" class="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white mx-1 my-1">{{ permission }}</button>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center ">
+                                            <span  class="mr-2 text-green-600 cursor-pointer"><i class="fa-solid fa-pen-to-square"></i></span>
+                                            <span  class="text-red-600 cursor-pointer"><i class="fa-solid fa-trash-can"></i></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </tbody>
+                    </table>
+                    <div class="flex justify-center pt-2 shadow-md">
+                        <pagination-controls 
+                         (pageChange)="renderPage($event)"
+                        ></pagination-controls>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
