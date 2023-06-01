@@ -28,7 +28,9 @@ export class RoleService {
   addRole(role : Role):Observable<any>{
   return this.http.post<any>(this.apiUrl+'/createrole',role).pipe(catchError(this.handlError));
   }
-
+  removeRole(index:number): Observable<any>{
+    return this.http.delete<any>(this.apiUrl + `/deleterole?id=${index}`).pipe(catchError(this.handlError));
+  }
   handlError(error:HttpErrorResponse){
     let errorMessage = '';
     if(error.error instanceof ErrorEvent){

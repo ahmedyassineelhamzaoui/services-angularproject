@@ -18,7 +18,7 @@ export class RolesComponent {
     Permissions !: Permission[];
     allRolesp : number = 0;
     pagination  : number = 1;
- 
+    roleToEdit : Role = new Role(); 
     deleteIndex : number = -1 ;
     roleIndex   : number = -1 ;
     editIndex   : number = -1 ;
@@ -78,7 +78,7 @@ export class RolesComponent {
       this.errors = null;
     }
     showEditModal(index : number){
-      let editUserModal=document.querySelector('#edit-userModal') as HTMLElement;
+      let editRoleModal=document.querySelector('#edit-roleModal') as HTMLElement;
       this.editIndex = index;
       // this.Users.forEach(element => {
       //   if(element.id == index){
@@ -88,8 +88,8 @@ export class RolesComponent {
       //     this.userToEdit.email      = element.email; 
       //   }
       // });
-      editUserModal.classList.add('flex');
-      editUserModal.classList.remove('hidden');
+      editRoleModal.classList.add('flex');
+      editRoleModal.classList.remove('hidden');
     }
     hideEditModal(){
       let editRolerModal=document.querySelector('#edit-roleModal') as HTMLElement;
@@ -145,7 +145,42 @@ export class RolesComponent {
           console.log(err);
       })
     }
-    
+    confirmDelete(){
+      console.log(this.deleteIndex)
+      let messageSuccessRole=document.querySelector(".message-success-role") as HTMLElement;
+      let successAlertRole = document.querySelector("#successAlert-role") as HTMLElement;
+      this.Roles.forEach((element,index) => {
+        if(element.id == this.deleteIndex){
+          this.roleIndex = index;
+          this.roleService.removeRole(this.deleteIndex).subscribe((response) =>{
+            if(response.success){
+              this.Roles.splice(this.roleIndex,1);
+              this.hideDeleteModal();
+              successAlertRole.classList.add('flex')
+              successAlertRole.classList.remove('hidden');
+              messageSuccessRole.innerText=response.success;
+              if (messageSuccessRole) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }
+            if(response.error){
+              console.log(response.error  )
+              this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+            }
+            if(response.permissions){
+              this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+            }
+          },(err)=>{
+            this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+          }) 
+        }
+        
+      });
+
+      this.hideDeleteModal();
+    }
     removeAlert(): void {
       let errorAlertRole = document.querySelector("#errorAlert-role") as HTMLElement;
       let successAlertRole = document.querySelector("#successAlert-role") as HTMLElement;
