@@ -22,10 +22,12 @@ export class RolesComponent {
     deleteIndex : number = -1 ;
     roleIndex   : number = -1 ;
     editIndex   : number = -1 ;
+    param       : boolean = false;
     errors: any = null;
     editerrors: any = null;
     role :  Role = new Role();
     permission : Permission = new Permission();
+    arrayOfPermessions !: Permission[];
 
 
     constructor
@@ -80,16 +82,26 @@ export class RolesComponent {
     showEditModal(index : number){
       let editRoleModal=document.querySelector('#edit-roleModal') as HTMLElement;
       this.editIndex = index;
-      // this.Users.forEach(element => {
-      //   if(element.id == index){
-      //     this.userToEdit.id         = element.id; 
-      //     this.userToEdit.first_name = element.first_name; 
-      //     this.userToEdit.last_name  = element.last_name; 
-      //     this.userToEdit.email      = element.email; 
-      //   }
-      // });
+      this.Roles.forEach(element => {
+        if(element.id == index){
+          this.roleToEdit.id           = element.id; 
+          this.roleToEdit.name         = element.name; 
+          this.roleToEdit.permissions  = element.permissions; 
+        }
+      });
       editRoleModal.classList.add('flex');
       editRoleModal.classList.remove('hidden');
+      this.param = true;
+    }
+    ischecked(name:string){
+      if(this.param == true){        
+        for (let permission of this.roleToEdit.permissions) {
+            if(permission.name == name){
+               return true;
+            }
+        }
+        return false;
+      }
     }
     hideEditModal(){
       let editRolerModal=document.querySelector('#edit-roleModal') as HTMLElement;
@@ -114,8 +126,9 @@ export class RolesComponent {
       let messageSuccessRole=document.querySelector(".message-success-role") as HTMLElement;
       let successAlertRole = document.querySelector("#successAlert-role") as HTMLElement;
       let checkedPermissions = this.Permissions.filter(permission => permission.checked);
-      let permissionsToSend = checkedPermissions.map(permission => permission.name);
-      this.role.permissions = permissionsToSend;
+
+      this.role.permissions = checkedPermissions;
+      console.log(this.role);
       this.roleService.addRole(this.role)
       .subscribe(
         response => {
@@ -180,6 +193,51 @@ export class RolesComponent {
       });
 
       this.hideDeleteModal();
+    }
+    confirmUpdate(){
+      let messageSuccessRole=document.querySelector(".message-success-role") as HTMLElement;
+      let successAlertRole = document.querySelector("#successAlert-role") as HTMLElement;
+      let checkedPermissions = this.Permissions.filter(permission => permission.checked);
+      this.roleToEdit.permissions = checkedPermissions
+      this.Roles.forEach((element,index) => {
+        if(element.id == this.editIndex){
+          this.roleIndex = index;
+          this.roleService.updateRole(this.editIndex,this.roleToEdit).subscribe(response => {
+            if(response.success){
+              this.Roles[this.roleIndex] = response.role;
+              this.hideEditModal();
+              successAlertRole.classList.add('flex')
+              successAlertRole.classList.remove('hidden');
+              messageSuccessRole.innerText=response.success;
+              if (messageSuccessRole) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }else if(response.permissions){
+              this.ngZone.run(()=> this.router.navigateByUrl('/permissions'))
+            }else if(response.errors){
+              this.errors = response.errors
+            }else if(response.exist){
+              let errorAlert=document.querySelector('#errorAlert-role') as HTMLElement
+              let messageErrors=document.querySelector(".message-error-role") as HTMLElement;
+              messageErrors.innerText=response.exist;
+              errorAlert.classList.add('flex')
+              errorAlert.classList.remove('hidden');
+              if (messageErrors) {
+                setTimeout(() => {
+                  this.removeAlert();
+                }, 5000);
+              }
+            }else{
+              this.ngZone.run(()=> this.router.navigateByUrl('/404'))
+            }
+        },(err)=>{
+          
+        })
+        }
+      });
+
     }
     removeAlert(): void {
       let errorAlertRole = document.querySelector("#errorAlert-role") as HTMLElement;
